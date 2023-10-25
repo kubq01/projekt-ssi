@@ -1,4 +1,4 @@
-package org.example.Product;
+package com.example.backend.Product;
 
 public interface ProductDAO {
     ProductDTO getProductById(Long id);

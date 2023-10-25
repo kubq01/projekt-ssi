@@ -1,6 +1,6 @@
-package org.example.category;
+package com.example.backend.category;
 
-import org.example.DatabaseConnection;
+import com.example.backend.DatabaseConnection;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;

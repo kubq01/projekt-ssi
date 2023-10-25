@@ -1,6 +1,6 @@
-package org.example.Product;
+package com.example.backend.Product;
 
-import org.example.DatabaseConnection;
+import com.example.backend.DatabaseConnection;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;

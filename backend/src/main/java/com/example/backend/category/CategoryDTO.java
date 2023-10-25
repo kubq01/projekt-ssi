@@ -1,4 +1,4 @@
-package org.example.category;
+package com.example.backend.category;
 
 import lombok.Data;
 

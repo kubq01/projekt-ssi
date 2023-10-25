@@ -1,4 +1,4 @@
-package org.example.User;
+package com.example.backend.User;
 
 public interface UserDAO {
     UserDTO getUserById(Long id);

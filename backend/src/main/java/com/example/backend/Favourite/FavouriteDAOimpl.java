@@ -1,6 +1,6 @@
-package org.example.Favourite;
+package com.example.backend.Favourite;
 
-import org.example.DatabaseConnection;
+import com.example.backend.DatabaseConnection;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
