@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="990a2592-cc95-4177-adb3-dbdf4e1febc7" name="Changes" comment="initial commit" />
+    <list default="true" id="990a2592-cc95-4177-adb3-dbdf4e1febc7" name="Changes" comment="initial commit">
+      <change beforePath="$PROJECT_DIR$/frontend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/package-lock.json" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -17,7 +19,7 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "D:/JetBrains/IntellijWorkspace/projekt-ssi",
+    "last_opened_file_path": "C:/Users/josso/OneDrive/Pulpit/moj stary pijany",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -45,6 +47,7 @@
       <workItem from="1698256243574" duration="84000" />
       <workItem from="1698256343144" duration="69000" />
       <workItem from="1698256424718" duration="326000" />
+      <workItem from="1698257103546" duration="225000" />
     </task>
     <task id="LOCAL-00001" summary="initial commit">
       <created>1698256751866</created>
