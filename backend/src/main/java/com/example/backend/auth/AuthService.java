@@ -40,4 +40,8 @@ public class AuthService {
                     .accessToken(jwtService.generateToken(user.getEmail()))
                     .build();
     }
+
+    public UserDTO getUserFromToken(String token){
+        return repository.getUserByEmail(jwtService.getEmailFromToken(token));
+    }
 }

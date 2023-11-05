@@ -1,15 +1,20 @@
 package com.example.backend.Favourite;
 
+import com.example.backend.auth.AuthService;
+import com.example.backend.auth.TokenGenerator;
+import com.google.gson.Gson;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+
 import java.io.IOException;
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 @WebServlet("/favourite")
 public class FavouriteServlet extends HttpServlet {
     private FavouriteDAO favouriteDAO;
+    private final AuthService service = new AuthService();
 
     @Override
     public void init() throws ServletException {
@@ -17,6 +22,9 @@ public class FavouriteServlet extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        if(service.getUserFromToken(request.getHeader("Authentication")) == null)
+            throw new RuntimeException("FORBIDDEN");
+
         String action = request.getParameter("action");
 
         if ("get".equals(action)) {

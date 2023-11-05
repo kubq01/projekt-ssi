@@ -1,5 +1,6 @@
 package com.example.backend.category;
 
+import com.example.backend.auth.AuthService;
 import com.google.gson.Gson;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -15,8 +16,12 @@ public class CategoryServlet extends HttpServlet {
     private CategoryDAOimpl categoryDAO = new CategoryDAOimpl();
     private Gson gson = new Gson();
 
+    private AuthService service = new AuthService();
+
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+        if(service.getUserFromToken(request.getHeader("Authentication")) == null)
+            throw new RuntimeException("FORBIDDEN");
         String action = request.getParameter("action");
 
         if ("getCategoryById".equals(action)) {
