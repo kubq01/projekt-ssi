@@ -9,7 +9,7 @@ import java.util.HashMap;
 
 public class AuthService {
     private final UserDAOimpl repository = new UserDAOimpl();
-    private final TokenGenerator jwtService = new TokenGenerator();
+    private final TokenGenerator jwtService = TokenGenerator.getInstance();
 
     public AuthenticationResponse register(RegisterRequest request) throws UsernameTakenException{
         if(repository.getUserByEmail(request.getEmail()) != null)
@@ -23,7 +23,7 @@ public class AuthService {
                 .role("USER")
                 .build();
         repository.createUser(user);
-        var jwtToken = jwtService.generateToken(new HashMap<>(), user);
+        String jwtToken = jwtService.generateToken(user.getEmail());
         return AuthenticationResponse.builder()
                 .accessToken(jwtToken)
                 .build();
