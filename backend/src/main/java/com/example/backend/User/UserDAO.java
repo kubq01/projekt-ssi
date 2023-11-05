@@ -5,4 +5,5 @@ public interface UserDAO {
     void createUser(UserDTO User);
     void updateUser(UserDTO User);
     void deleteUser(Long id);
+    UserDTO getUserByEmail(String email);
 }

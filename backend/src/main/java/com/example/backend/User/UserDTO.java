@@ -1,11 +1,16 @@
 package com.example.backend.User;
 
+import lombok.Builder;
 import lombok.Data;
+import lombok.Generated;
 
 import java.util.Date;
 
 @Data
+@Builder
 public class UserDTO {
+
+    @Generated
     private Long id;
     private String firstName;
     private String lastName;

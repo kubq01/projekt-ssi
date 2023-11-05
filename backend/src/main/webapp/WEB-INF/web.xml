@@ -6,12 +6,30 @@
 
     <servlet>
         <servlet-name>CategoryServlet</servlet-name>
-        <servlet-class>com.example.CategoryServlet</servlet-class>
+        <servlet-class>com.example.backend.category.CategoryServlet</servlet-class>
     </servlet>
 
     <servlet-mapping>
         <servlet-name>CategoryServlet</servlet-name>
         <url-pattern>/category</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>RegisterServlet</servlet-name>
+        <servlet-class>com.example.backend.auth.RegisterServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>RegisterServlet</servlet-name>
+        <url-pattern>/auth/register</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>AuthenticateServlet</servlet-name>
+        <servlet-class>com.example.backend.auth.AuthenticateServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AuthenticateServlet</servlet-name>
+        <url-pattern>/auth/authenticate</url-pattern>
     </servlet-mapping>
 
 </web-app>

@@ -21,6 +21,19 @@ public class UserDAOimpl implements UserDAO {
     }
 
     @Override
+    public UserDTO getUserByEmail(String email) {
+        String query = "SELECT * FROM user WHERE email = ?";
+        PreparedStatement preparedStatement = DatabaseConnection.getInstance().prepareStatement(query);
+
+        try {
+            preparedStatement.setString(1, email);
+            return DatabaseConnection.getInstance().sendQuery(preparedStatement).getObject(1, UserDTO.class);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
     public void createUser(UserDTO user) {
         String statement = "INSERT INTO user (firstName, lastName, dateOfBirth, login, password, email, role) VALUES (?, ?, ?, ?, ?, ?, ?)";
         PreparedStatement preparedStatement = DatabaseConnection.getInstance().prepareStatement(statement);
