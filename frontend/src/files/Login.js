@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom'; // Importuj Link z react-router-dom
-import 'bootstrap/dist/css/bootstrap.min.css';
+import { Link } from 'react-router-dom';
 
 function Login() {
     const [email, setEmail] = useState('');
@@ -10,8 +9,7 @@ function Login() {
     const handleLogin = async (e) => {
         e.preventDefault();
 
-        // Przykładowa ścieżka do Twojego backendu
-        const apiUrl = 'http://localhost:8080/api/login'; // Zastąp odpowiednią ścieżką
+        const apiUrl = 'http://localhost:8080/api/login';
 
         try {
             const response = await axios.post(apiUrl, {
@@ -20,14 +18,11 @@ function Login() {
             });
 
             if (response.data.success) {
-                // Tutaj możesz obsłużyć sukces logowania, np. przekierować użytkownika
                 alert('Zalogowano pomyślnie!');
             } else {
-                // Tutaj możesz obsłużyć błędne logowanie, np. wyświetlić komunikat o błędzie
                 alert('Błąd logowania. Spróbuj ponownie.');
             }
         } catch (error) {
-            // Tutaj obsługuj błędy związane z żądaniem HTTP
             console.error('Błąd logowania:', error);
             alert('Wystąpił błąd podczas logowania. Spróbuj ponownie później.');
         }
