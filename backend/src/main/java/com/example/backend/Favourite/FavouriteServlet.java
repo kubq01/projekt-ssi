@@ -1,7 +1,6 @@
 package com.example.backend.Favourite;
 
 import com.example.backend.auth.AuthService;
-import com.example.backend.auth.TokenGenerator;
 import com.google.gson.Gson;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -39,9 +38,10 @@ public class FavouriteServlet extends HttpServlet {
             response.setCharacterEncoding("UTF-8");
             response.getWriter().write(json);
         } else if ("create".equals(action)) {
+            Long id = Long.parseLong(request.getParameter("id"));
             Long userId = Long.parseLong(request.getParameter("userId"));
             Long productId = Long.parseLong(request.getParameter("productId"));
-            FavouriteDTO newFavourite = new FavouriteDTO(userId, productId);
+            FavouriteDTO newFavourite = new FavouriteDTO(id, userId, productId);
 
             favouriteDAO.createFavourite(newFavourite);
             response.sendRedirect(request.getContextPath() + "/favourite?action=get&id=" + newFavourite.getId());
