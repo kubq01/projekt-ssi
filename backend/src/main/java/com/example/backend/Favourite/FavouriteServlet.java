@@ -44,7 +44,7 @@ public class FavouriteServlet extends HttpServlet {
             FavouriteDTO newFavourite = new FavouriteDTO(id, userId, productId);
 
             favouriteDAO.createFavourite(newFavourite);
-            response.sendRedirect(request.getContextPath() + "/favourite?action=get&id=" + newFavourite.getId());
+            response.sendRedirect(request.getContextPath() + "/favourite?action=get&id=" + newFavourite.getUserId());
 
             Gson gson = new Gson();
             String json = gson.toJson(newFavourite);

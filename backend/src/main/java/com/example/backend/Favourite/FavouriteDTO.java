@@ -7,8 +7,8 @@ import lombok.Getter;
 public class FavouriteDTO {
     @Getter
     private Long id;
-    private Long userId;
-    private Long productId;
+    private final Long userId;
+    private final Long productId;
 
     public FavouriteDTO(Long id, Long userId, Long productId) {
         this.id = id;

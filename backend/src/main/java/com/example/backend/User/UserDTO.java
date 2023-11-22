@@ -1,11 +1,13 @@
 package com.example.backend.User;
 
+import com.example.backend.Favourite.FavouriteDTO;
 import lombok.Builder;
 import lombok.Data;
 import lombok.Generated;
 
 import java.time.LocalDate;
 import java.util.Date;
+import java.util.List;
 
 @Data
 @Builder
@@ -21,5 +23,6 @@ public class UserDTO {
     private String email;
     private String role;
 
+    private List<FavouriteDTO> favourites;
     // Getters and setters
 }
