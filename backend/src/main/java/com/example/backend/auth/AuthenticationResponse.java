@@ -11,4 +11,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class AuthenticationResponse {
     private String accessToken;
+    private String role;
+    private boolean isBlocked;
 }

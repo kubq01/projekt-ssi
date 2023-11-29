@@ -22,6 +22,7 @@ public class UserDTO {
     private String password;
     private String email;
     private String role;
+    private boolean isBlocked;
 
     private List<FavouriteDTO> favourites;
     // Getters and setters

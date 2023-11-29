@@ -23,7 +23,6 @@ public class TokenGenerator {
 
     public String generateToken(String email) {
         try {
-
             return JWT.create()
                     .withSubject(email)
                     .sign(algorithm);

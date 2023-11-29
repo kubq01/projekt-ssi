@@ -3,7 +3,11 @@ package com.example.backend.User;
 import com.example.backend.DatabaseConnection;
 
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class UserDAOimpl implements UserDAO {
 
@@ -32,6 +36,38 @@ public class UserDAOimpl implements UserDAO {
             throw new RuntimeException(e);
         }
     }
+
+    @Override
+    public List<UserDTO> getAllNotAdmins() {
+        String query = "SELECT * FROM user WHERE role = 'USER'";
+        PreparedStatement preparedStatement = DatabaseConnection.getInstance().prepareStatement(query);
+
+        try (ResultSet resultSet = DatabaseConnection.getInstance().sendQuery(preparedStatement)) {
+            List<UserDTO> userList = new ArrayList<>();
+
+            while (resultSet.next()) {
+                // Assuming UserDTO has a constructor that takes the necessary fields
+                UserDTO userDTO = new UserDTO(
+                        resultSet.getLong("id"),
+                        resultSet.getString("firstName"),
+                        resultSet.getString("lastName"),
+                        resultSet.getDate("dateOfBirth").toLocalDate(),
+                        resultSet.getString("login"),
+                        resultSet.getString("password"),
+                        resultSet.getString("email"),
+                        resultSet.getString("role"),
+                        resultSet.getBoolean("isBlocked"),
+                        Collections.emptyList()
+                );
+                userList.add(userDTO);
+            }
+
+            return userList;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 
     @Override
     public void createUser(UserDTO user) {

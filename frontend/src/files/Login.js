@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
 
 function Login() {
     const [email, setEmail] = useState('');
@@ -10,6 +10,7 @@ function Login() {
         e.preventDefault();
 
         const apiUrl = 'http://localhost:8080/api/login';
+        const navigate = useNavigate
 
         try {
             const response = await axios.post(apiUrl, {
@@ -19,6 +20,17 @@ function Login() {
 
             if (response.data.success) {
                 alert('Zalogowano pomyślnie!');
+                if(response.data.isBlocked == "true") {
+                    alert('Użytkownik zablokowany');
+                    return;
+                }
+                localStorage.setItem("token", response.data.accessToken)
+                localStorage.setItem("role", response.data.role)
+                if(localStorage.getItem("role") == "ADMIN") {
+                    navigate("/adminpanel")
+                } else {
+                    navigate("/userhome")
+                }
             } else {
                 alert('Błąd logowania. Spróbuj ponownie.');
             }
