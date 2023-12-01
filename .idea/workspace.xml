@@ -9,15 +9,25 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="990a2592-cc95-4177-adb3-dbdf4e1febc7" name="Changes" comment="auth structure">
-      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/backend/auth/AuthenticateServlet.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/backend/auth/AuthenticationRequest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/backend/auth/AuthenticationResponse.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/backend/auth/RegisterRequest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/backend/auth/RegisterServlet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+    <list default="true" id="990a2592-cc95-4177-adb3-dbdf4e1febc7" name="Changes" comment="update servletow">
+      <change afterPath="$PROJECT_DIR$/frontend/src/files/User.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/webapp/WEB-INF/web.xml" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/webapp/WEB-INF/web.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/App.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/Navbar.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/Navbar.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/files/Favourites.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/files/Favourites.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/files/Home.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/files/Home.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/files/Login.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/files/Login.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/files/Product.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/files/Product.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/files/Register.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/files/Register.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/files/User.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/files/adminPages/AdminPanel.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/files/adminPages/AdminPanel.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/files/adminPages/ResourceManagement.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/files/adminPages/ResourceManagement.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/files/adminPages/UserManagement.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/files/adminPages/UserManagement.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/files/userPages/FavouritesPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/files/userPages/FavouritesPage.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/files/userPages/UserHome.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/files/userPages/UserHome.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/index.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -58,6 +68,7 @@
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_interpreter_path": "node",
     "nodejs_package_manager_path": "npm",
+    "ts.external.directory.path": "D:\\JetBrains\\IntelliJ Ultimate IDEA 2022.3.3\\plugins\\javascript-impl\\jsLanguageServicesImpl\\external",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
@@ -182,7 +193,11 @@
       <workItem from="1698257103546" duration="225000" />
       <workItem from="1698259875243" duration="1777000" />
       <workItem from="1698400999372" duration="52000" />
-      <workItem from="1699186168155" duration="1766000" />
+      <workItem from="1699186168155" duration="4829000" />
+      <workItem from="1700064254127" duration="1816000" />
+      <workItem from="1700147589015" duration="856000" />
+      <workItem from="1701438322641" duration="1225000" />
+      <workItem from="1701442389660" duration="10484000" />
     </task>
     <task id="LOCAL-00001" summary="initial commit">
       <created>1698256751866</created>
@@ -212,7 +227,35 @@
       <option name="project" value="LOCAL" />
       <updated>1699186594445</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="auth service and auth controllers">
+      <created>1699189143063</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1699189143063</updated>
+    </task>
+    <task id="LOCAL-00006" summary="fixes">
+      <created>1699189442232</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1699189442232</updated>
+    </task>
+    <task id="LOCAL-00007" summary="auth w innych servletach">
+      <created>1699190393550</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1699190393550</updated>
+    </task>
+    <task id="LOCAL-00008" summary="update servletow">
+      <created>1700065956902</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1700065956902</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -234,6 +277,10 @@
     <MESSAGE value="refractor" />
     <MESSAGE value="category servlet" />
     <MESSAGE value="auth structure" />
-    <option name="LAST_COMMIT_MESSAGE" value="auth structure" />
+    <MESSAGE value="auth service and auth controllers" />
+    <MESSAGE value="fixes" />
+    <MESSAGE value="auth w innych servletach" />
+    <MESSAGE value="update servletow" />
+    <option name="LAST_COMMIT_MESSAGE" value="update servletow" />
   </component>
 </project>

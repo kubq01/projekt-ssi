@@ -1,43 +1,45 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import axios from 'axios';
 import {Link, useNavigate} from 'react-router-dom';
 
-function Register() {
-    const [firstName, setFirstName] = useState('');
-    const [lastName, setLastName] = useState('');
+function Login() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const navigate = useNavigate()
 
-    const handleRegistration = async (e) => {
+    const handleLogin = async (e) => {
         e.preventDefault();
 
-        const apiUrl = 'http://localhost:8080/api/register'; // Zastąp odpowiednią ścieżką
-        const navigate = useNavigate
+        const apiUrl = 'http://localhost:8083/auth/authenticate';
 
         try {
             const response = await axios.post(apiUrl, {
-                firstName: firstName,
-                lastName: lastName,
                 email: email,
                 password: password,
-                role: "USER",
             });
 
-            if (response.data.success) {
-                alert('Zarejestrowano pomyślnie!');
+
+
+            if (response.data) {
+                alert('Zalogowano pomyślnie!');
+                if(response.data.blocked == "true") {
+                    alert('Użytkownik zablokowany');
+                    return;
+                }
                 localStorage.setItem("token", response.data.accessToken)
                 localStorage.setItem("role", response.data.role)
                 if(localStorage.getItem("role") == "ADMIN") {
                     navigate("/adminpanel")
                 } else {
+
                     navigate("/userhome")
                 }
             } else {
-                alert('Błąd rejestracji. Spróbuj ponownie.');
+                alert('Błąd logowania. Spróbuj ponownie.');
             }
         } catch (error) {
-            console.error('Błąd rejestracji:', error);
-            alert('Wystąpił błąd podczas rejestracji. Spróbuj ponownie później.');
+            console.error('Błąd logowania:', error);
+            alert('Wystąpił błąd podczas logowania. Spróbuj ponownie później.');
         }
     };
 
@@ -45,37 +47,9 @@ function Register() {
         <div className="container">
             <div className="row">
                 <div className="col-md-6 offset-md-3 border rounded p-4 mt-2 shadow">
-                    <h2 className="text-center m-4">Formularz Rejestracji</h2>
+                    <h2 className="text-center m-4">Formularz Logowania</h2>
                     <hr />
-                    <form onSubmit={handleRegistration}>
-                        <div className="mb-3">
-                            <div className="form-group">
-                                <label htmlFor="firstName">Imię:</label>
-                                <input
-                                    type="text"
-                                    className="form-control"
-                                    id="firstName"
-                                    placeholder="Enter First Name"
-                                    value={firstName}
-                                    onChange={(event) => setFirstName(event.target.value)}
-                                    required
-                                />
-                            </div>
-                        </div>
-                        <div className="mb-3">
-                            <div className="form-group">
-                                <label htmlFor="lastName">Nazwisko:</label>
-                                <input
-                                    type="text"
-                                    className="form-control"
-                                    id="lastName"
-                                    placeholder="Enter Last Name"
-                                    value={lastName}
-                                    onChange={(event) => setLastName(event.target.value)}
-                                    required
-                                />
-                            </div>
-                        </div>
+                    <form onSubmit={handleLogin}>
                         <div className="mb-3">
                             <div className="form-group">
                                 <label htmlFor="email">Email:</label>
@@ -106,19 +80,19 @@ function Register() {
                         </div>
                         <div className="mb-3">
                             <button type="submit" className="btn btn-primary">
-                                Zarejestruj
+                                Zaloguj
                             </button>
                         </div>
-                        <div className="text-center">
-                            <Link to="/" className="btn btn-secondary">
-                                Wróć do strony głównej
-                            </Link>
-                        </div>
                     </form>
+                    <div className="text-center">
+                        <Link to="/" className="btn btn-secondary">
+                            Wróć do strony głównej
+                        </Link>
+                    </div>
                 </div>
             </div>
         </div>
     );
 }
 
-export default Register;
+export default Login;

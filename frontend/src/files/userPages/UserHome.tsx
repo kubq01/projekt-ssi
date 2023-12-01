@@ -1,19 +1,30 @@
-import React, { useContext, useEffect, useState } from 'react';
+import{ useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import User from "../User";
+import {User} from "../User.tsx";
 
 export default function UserHome() {
-    const [userData, setUserData] = useState <User>(null);
+    const [userData, setUserData] = useState <User>({id: 0,
+        firstName: '',
+        lastName: '',
+        dateOfBirth: '',
+        login: '',
+        password: '',
+        email: '',
+        role: '',
+        favourites: [],
+        isUserBlocked: false});
 
     useEffect(() => {
         const token = localStorage.getItem('token');
 
         if (token) {
-            fetch('http://localhost:8080/user?action=getUserById&id=1', {
+            console.log(token)
+            fetch('http://localhost:8083/user/my_profile', {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authentication': token,
+                    'Authorization': `Bearer ${token}`,
+                    'Access-Control-Allow-Origin': 'http://localhost:3000',
                 },
             })
                 .then(response => response.json())

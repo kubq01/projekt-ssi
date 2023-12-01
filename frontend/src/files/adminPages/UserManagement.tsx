@@ -1,11 +1,13 @@
-import React, { useState, useEffect } from 'react';
-import User from "../User";
+import { useState, useEffect } from 'react';
+import {User} from "../User.tsx";
+import {useNavigate} from "react-router-dom";
 
 const UserManagement = () => {
     const [users, setUsers] = useState([]);
     const [newPassword, setNewPassword] = useState('');
     const token = localStorage.getItem('token');
-    const apiUrl = 'http://localhost:8080/getNotAdmins';
+    const apiUrl = 'http://localhost:8083/user/getNotAdmins';
+    const navigate = useNavigate()
 
     useEffect(() => {
         const fetchData = async () => {
@@ -14,7 +16,7 @@ const UserManagement = () => {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',
-                        'Authorization': token,
+                        'Authorization': `Bearer ${token}`,
                     },
                 });
 
@@ -24,6 +26,7 @@ const UserManagement = () => {
 
                 const data = await response.json();
                 setUsers(data);
+                console.log(data)
             } catch (error) {
                 console.error('Error fetching data:', error);
             }
@@ -35,11 +38,11 @@ const UserManagement = () => {
     const promoteToAdmin = async (user: User) => {
         user.role = "ADMIN"
         try {
-            const response = await fetch('http://localhost:8080/user?action=updateUser&id=' + user.id, {
+            const response = await fetch('http://localhost:8083/user', {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded',
-                    'Authorization': token,
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`,
                 },
                 body: JSON.stringify(user),
             });
@@ -55,13 +58,15 @@ const UserManagement = () => {
     };
 
     const toggleUserBlockStatus = async (user: User) => {
-        user.isBlocked = !user.isBlocked
+        user.isUserBlocked = !user.isUserBlocked
+        user.blocked = !user.blocked
+        console.log(JSON.stringify(user))
         try {
-            const response = await fetch('http://localhost:8080/user?action=updateUser&id=' + user.id, {
+            const response = await fetch('http://localhost:8083/user', {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded',
-                    'Authorization': token,
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`,
                 },
                 body: JSON.stringify(user),
             });
@@ -71,6 +76,7 @@ const UserManagement = () => {
             }
 
             console.log(`Password changed successfully`);
+            navigate(0)
         } catch (error) {
             console.error('Error changing password:', error);
         }
@@ -79,11 +85,11 @@ const UserManagement = () => {
     const changeUserPassword = async (user: User) => {
         user.password = newPassword
         try {
-            const response = await fetch('http://localhost:8080/user?action=updateUser&id=' + user.id, {
+            const response = await fetch('http://localhost:8083/user', {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded',
-                    'Authorization': token,
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`,
                 },
                 body: JSON.stringify(user),
             });
@@ -107,7 +113,7 @@ const UserManagement = () => {
                         {user.firstName} {user.lastName} - {user.email}
                         <button onClick={() => promoteToAdmin(user)}>Promote to Admin</button>
                         <button onClick={() => toggleUserBlockStatus(user)}>
-                            {user.isBlocked ? 'Unblock' : 'Block'}
+                            {user.blocked ? 'Unblock' : 'Block'}
                         </button>
                         <div>
                             <input

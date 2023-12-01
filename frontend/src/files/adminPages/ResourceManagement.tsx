@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from 'react';
-import Product from "../Product";
+import  { useState, useEffect } from 'react';
+import {Product} from "../Product.tsx";
 
 const ResourceManagement = () => {
     const [products, setProducts] = useState([]);
-    const [newProduct, setNewProduct] = useState({ ...Product });
-    const [editedProduct, setEditedProduct] = useState({ ...Product });
+    const [newProduct, setNewProduct] = useState();
+    const [editedProduct, setEditedProduct] = useState();
     const token = localStorage.getItem('token');
     const apiUrl = 'http://localhost:8080/product';
 
@@ -50,7 +50,7 @@ const ResourceManagement = () => {
 
             console.log(`Product added successfully`);
 
-            setNewProduct({ ...Product });
+            setNewProduct(newProduct);
             fetchData();
         } catch (error) {
             console.error('Error adding product:', error);
@@ -74,7 +74,7 @@ const ResourceManagement = () => {
 
             console.log(`Product edited successfully`);
 
-            setEditedProduct({ ...Product });
+            setEditedProduct(editedProduct);
             fetchData();
         } catch (error) {
             console.error('Error editing product:', error);

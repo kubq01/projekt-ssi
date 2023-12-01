@@ -1,12 +1,13 @@
 import './App.css';
-import Login from "./files/Login";
-import Register from "./files/Register";
-import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
+import Login from "./files/Login.tsx";
+import Register from "./files/Register.tsx";
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Home from "./files/Home";
-import UserHome from "./files/userPages/UserHome";
-import FavouritesPage from "./files/userPages/FavouritesPage";
-import AdminPanel from "./files/adminPages/AdminPanel";
+import Home from "./files/Home.tsx";
+import UserHome from "./files/userPages/UserHome.tsx";
+import FavouritesPage from "./files/userPages/FavouritesPage.tsx";
+import AdminPanel from "./files/adminPages/AdminPanel.tsx";
+import UserManagement from "./files/adminPages/UserManagement.tsx";
+import ResourceManagement from "./files/adminPages/ResourceManagement.tsx";
 
 function App() {
   return (

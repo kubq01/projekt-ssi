@@ -1,5 +1,4 @@
 // src/components/AdminPanel.js
-import React from 'react';
 import { Link } from 'react-router-dom';
 
 const AdminPanel = () => {
