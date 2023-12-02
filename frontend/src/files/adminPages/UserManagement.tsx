@@ -113,7 +113,7 @@ const UserManagement = () => {
             <h2>User List</h2>
             <ul>
                 {users.map(user => (
-                    <li key={user.id}>
+                    <li key={user.email}>
                         {user.firstName} {user.lastName} - {user.email}
                         <button onClick={() => promoteToAdmin(user)}>Promote to Admin</button>
                         <button onClick={() => toggleUserBlockStatus(user)}>
@@ -123,7 +123,7 @@ const UserManagement = () => {
                             <input
                                 type="text"
                                 placeholder="New Password"
-                                value={newPassword}
+                                id={user.email}
                                 onChange={(e) => setNewPassword(e.target.value)}
                             />
                             <button onClick={() => changeUserPassword(user)}>Change Password</button>
