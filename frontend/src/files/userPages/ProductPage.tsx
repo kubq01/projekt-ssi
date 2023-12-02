@@ -49,8 +49,8 @@ export default function ProductPage({favouritesUser}) {
         // Your custom logic when the button is clicked with the product parameter
         console.log(`Button clicked for Product ID ${product.id}`);
         const token = localStorage.getItem('token');
-        const response = await fetch(`http://localhost:8083/favourite?id=${product.id}`, {
-            method: 'DELETE',
+        const response = await fetch(`http://localhost:8083/favourite?productId=${product.id}`, {
+            method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${token}`,
@@ -69,7 +69,7 @@ export default function ProductPage({favouritesUser}) {
                     <li key={product.id}>
                         {`Product ID: ${product.id}, Name: ${product.name}, Price: ${product.price}, Rating: ${product.rating}`}
                         <Button onClick={() => handleButtonClick(product)}>
-                            Remove</Button>
+                            Add to favourite</Button>
                     </li>
                 ))}
             </ul>

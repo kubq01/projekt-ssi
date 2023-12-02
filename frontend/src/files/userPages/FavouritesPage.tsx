@@ -9,6 +9,7 @@ export default function FavouritesPage({favouritesUser}) {
     const navigate = useNavigate();
     const [favouriteProducts,setFavouriteProducts] = useState<Favourites[]>([]);
     const [products,setProducts] = useState<Product[]>([]);
+    const [productStop, setProductStop] = useState<Product>(null)
 
     useEffect(() => {
         const token = localStorage.getItem('token');
@@ -52,6 +53,10 @@ export default function FavouritesPage({favouritesUser}) {
 
 
                         const product = await response2.json();
+                        if(productStop == null)
+                            setProductStop(product)
+                        else if(productStop.id == product.id)
+                            return
                         setProducts((prevProducts) => [...prevProducts, product])
                     });
 
@@ -64,7 +69,7 @@ export default function FavouritesPage({favouritesUser}) {
 
             fetchData();
         }
-    })
+    },[favouritesUser])
 
     const handleButtonClick = async (product) => {
         // Your custom logic when the button is clicked with the product parameter
