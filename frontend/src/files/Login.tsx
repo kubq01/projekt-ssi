@@ -21,11 +21,13 @@ function Login() {
 
 
             if (response.data) {
-                alert('Zalogowano pomyślnie!');
-                if(response.data.blocked == "true") {
+
+                alert(JSON.stringify(response.data))
+                if(response.data.blocked == true) {
                     alert('Użytkownik zablokowany');
                     return;
                 }
+                alert('Zalogowano pomyślnie!');
                 localStorage.setItem("token", response.data.accessToken)
                 localStorage.setItem("role", response.data.role)
                 if(localStorage.getItem("role") == "ADMIN") {

@@ -50,7 +50,7 @@ const UserManagement = () => {
             if (!response.ok) {
                 throw new Error('Network response was not ok');
             }
-
+            navigate(0)
             console.log(`Password changed successfully`);
         } catch (error) {
             console.error('Error changing password:', error);
@@ -60,7 +60,9 @@ const UserManagement = () => {
     const toggleUserBlockStatus = async (user: User) => {
         user.isUserBlocked = !user.isUserBlocked
         user.blocked = !user.blocked
+        user.userBlocked = !user.userBlocked
         console.log(JSON.stringify(user))
+        alert(JSON.stringify(user))
         try {
             const response = await fetch('http://localhost:8083/user', {
                 method: 'POST',
@@ -85,7 +87,7 @@ const UserManagement = () => {
     const changeUserPassword = async (user: User) => {
         user.password = newPassword
         try {
-            const response = await fetch('http://localhost:8083/user', {
+            const response = await fetch('http://localhost:8083/user/password', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -97,7 +99,7 @@ const UserManagement = () => {
             if (!response.ok) {
                 throw new Error('Network response was not ok');
             }
-
+            navigate(0)
             console.log(`Password changed successfully`);
         } catch (error) {
             console.error('Error changing password:', error);
@@ -113,7 +115,7 @@ const UserManagement = () => {
                         {user.firstName} {user.lastName} - {user.email}
                         <button onClick={() => promoteToAdmin(user)}>Promote to Admin</button>
                         <button onClick={() => toggleUserBlockStatus(user)}>
-                            {user.blocked ? 'Unblock' : 'Block'}
+                            {user.userBlocked ? 'Unblock' : 'Block'}
                         </button>
                         <div>
                             <input
