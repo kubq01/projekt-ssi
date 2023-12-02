@@ -2,6 +2,7 @@ import{ useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import {User} from "../User.tsx";
 import FavouritesPage from "./FavouritesPage.tsx";
+import ProductPage from "./ProductPage.tsx";
 
 export default function UserHome() {
     const [userData, setUserData] = useState <User>({id: 0,
@@ -52,6 +53,9 @@ export default function UserHome() {
             )}
             <div>
                 <FavouritesPage favouritesUser={userData.favourites}/>
+            </div>
+            <div>
+                <ProductPage favouritesUser={userData.favourites}/>
             </div>
         </div>
     );
