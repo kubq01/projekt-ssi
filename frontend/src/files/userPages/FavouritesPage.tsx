@@ -23,34 +23,22 @@ export default function FavouritesPage({favouritesUser}) {
             console.log("useEffect is running");
             const fetchData = async () => {
                 try {
-                    const favouritesPromises = favouritesUser.map(async (fav) => {
-
-                        const response2 = await fetch(`http://localhost:8083/product?id=${fav.productId}`, {
-                            method: 'GET',
-                            headers: {
-                                'Content-Type': 'application/json',
-                                'Authorization': `Bearer ${token}`,
-                                'Access-Control-Allow-Origin': 'http://localhost:3000',
-                            },
-                        });
-                        if (!response2.ok) {
-                            throw new Error(`Failed to fetch product with id ${fav.productId}`);
-                        }
-
-
-                        const product = await response2.json();
-                        if(productStop == null)
-                            setProductStop(product)
-                        else if(productStop.id == product.id)
-                            return
-                        console.log(products)
-                        if(products.length>=favouritesUser.length)
-                            return;
-                        setProducts((prevProducts) => [...prevProducts, product])
+                    const response = await fetch('http://localhost:8083/product/fav', {
+                        method: 'GET',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': `Bearer ${token}`,
+                            'Access-Control-Allow-Origin': 'http://localhost:3000',
+                        },
                     });
 
+                    if (!response.ok) {
+                        throw new Error('Failed to fetch products');
+                    }
 
-
+                    const responseData = await response.json();
+                    setProducts(responseData);
+                    //console.log(responseData)
                 } catch (error) {
                     console.error(error);
                 }
@@ -78,7 +66,6 @@ export default function FavouritesPage({favouritesUser}) {
 
     return (
         <div>
-            <Navbar2/>
             <h1>Favourite Products</h1>
             <ul>
                 {products.map((product) => (

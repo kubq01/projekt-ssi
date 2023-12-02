@@ -63,7 +63,7 @@ const UserManagement = () => {
         user.blocked = !user.blocked
         user.userBlocked = !user.userBlocked
         console.log(JSON.stringify(user))
-        alert(JSON.stringify(user))
+        //alert(JSON.stringify(user))
         try {
             const response = await fetch('http://localhost:8083/user', {
                 method: 'POST',

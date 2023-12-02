@@ -64,7 +64,6 @@ export default function ProductPage({favouritesUser}) {
 
     return (
         <div>
-            <Navbar2/>
             <h1>All Products</h1>
             <ul>
                 {products.map((product) => (

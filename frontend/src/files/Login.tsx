@@ -22,7 +22,7 @@ function Login() {
 
             if (response.data) {
 
-                alert(JSON.stringify(response.data))
+                //alert(JSON.stringify(response.data))
                 if(response.data.blocked == true) {
                     alert('Użytkownik zablokowany');
                     return;
