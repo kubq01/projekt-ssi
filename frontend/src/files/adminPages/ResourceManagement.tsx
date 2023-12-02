@@ -1,5 +1,7 @@
 import  { useState, useEffect } from 'react';
 import {Product} from "../Product.tsx";
+import {useNavigate} from "react-router-dom";
+import Navbar2 from "../../components/Navbar2.tsx";
 
 const ResourceManagement = () => {
     const [products, setProducts] = useState<Product[]>([]);
@@ -15,6 +17,7 @@ const ResourceManagement = () => {
         rating: 0});
     const token = localStorage.getItem('token');
     const apiUrl = 'http://localhost:8083/product/allall';
+    const navigate = useNavigate()
 
     const fetchData = async () => {
         try {
@@ -43,7 +46,7 @@ const ResourceManagement = () => {
 
     const addProduct = async () => {
         try {
-            const response = await fetch(apiUrl, {
+            const response = await fetch("http://localhost:8083/product", {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -58,8 +61,7 @@ const ResourceManagement = () => {
 
             console.log(`Product added successfully`);
 
-            setNewProduct(newProduct);
-            fetchData();
+            navigate(0)
         } catch (error) {
             console.error('Error adding product:', error);
         }
@@ -67,7 +69,7 @@ const ResourceManagement = () => {
 
     const editProduct = async () => {
         try {
-            const response = await fetch(`${apiUrl}?action=updateProduct&id=${editedProduct.id}`, {
+            const response = await fetch(`http://localhost:8083/product`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -82,21 +84,21 @@ const ResourceManagement = () => {
 
             console.log(`Product edited successfully`);
 
-            setEditedProduct(editedProduct);
-            fetchData();
+            navigate(0)
         } catch (error) {
             console.error('Error editing product:', error);
         }
     };
 
-    const deleteProduct = async (productId) => {
+    const deleteProduct = async (deleteProd: Product) => {
         try {
-            const response = await fetch(`${apiUrl}?action=deleteProduct&id=${productId}`, {
-                method: 'POST',
+            const response = await fetch(`http://localhost:8083/product`, {
+                method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization':  `Bearer ${token}`,
                 },
+                body: JSON.stringify(deleteProd),
             });
 
             if (!response.ok) {
@@ -105,7 +107,7 @@ const ResourceManagement = () => {
 
             console.log(`Product deleted successfully`);
 
-            fetchData();
+            navigate(0)
         } catch (error) {
             console.error('Error deleting product:', error);
         }
@@ -113,13 +115,14 @@ const ResourceManagement = () => {
 
     return (
         <div>
+            <Navbar2/>
             <h2>Product List</h2>
             <ul>
                 {products.map(product => (
                     <li key={product.id}>
                         {product.name} - ${product.price} - Rating: {product.rating}
                         <button onClick={() => setEditedProduct(product)}>Edit Product</button>
-                        <button onClick={() => deleteProduct(product.id)}>Delete Product</button>
+                        <button onClick={() => deleteProduct(product)}>Delete Product</button>
                     </li>
                 ))}
             </ul>

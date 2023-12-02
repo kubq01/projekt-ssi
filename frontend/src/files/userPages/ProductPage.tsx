@@ -3,6 +3,7 @@ import {useNavigate} from "react-router-dom";
 import {Product} from "../Product.tsx";
 import {Favourites} from "../Favourites.tsx";
 import {Button} from "@mui/material";
+import Navbar2 from "../../components/Navbar2.tsx";
 
 export default function ProductPage({favouritesUser}) {
 
@@ -63,6 +64,7 @@ export default function ProductPage({favouritesUser}) {
 
     return (
         <div>
+            <Navbar2/>
             <h1>All Products</h1>
             <ul>
                 {products.map((product) => (

@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import {User} from "../User.tsx";
 import FavouritesPage from "./FavouritesPage.tsx";
 import ProductPage from "./ProductPage.tsx";
+import Navbar2 from "../../components/Navbar2.tsx";
 
 export default function UserHome() {
     const [userData, setUserData] = useState <User>({id: 0,
@@ -40,6 +41,7 @@ export default function UserHome() {
 
     return (
         <div>
+            <Navbar2/>
             <h1>Jesteś zalogowany jako użytkownik</h1>
             {userData && (
                 <div>

@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import {User} from "../User.tsx";
 import {useNavigate} from "react-router-dom";
+import Navbar2 from "../../components/Navbar2.tsx";
 
 const UserManagement = () => {
     const [users, setUsers] = useState([]);
@@ -108,6 +109,7 @@ const UserManagement = () => {
 
     return (
         <div>
+            <Navbar2/>
             <h2>User List</h2>
             <ul>
                 {users.map(user => (
