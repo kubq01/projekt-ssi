@@ -13,33 +13,18 @@ export default function FavouritesPage({favouritesUser}) {
 
     useEffect(() => {
         const token = localStorage.getItem('token');
-        if(products.length>0)
+        if(products.length>=favouritesUser.length)
             return;
         if (!token) {
             navigate('/login');
         } else {
             console.log(favouritesUser)
+            console.log("useEffect is running");
             const fetchData = async () => {
                 try {
                     const favouritesPromises = favouritesUser.map(async (fav) => {
-                        const response = await fetch(`http://localhost:8083/favourite?id=${fav.id}`, {
-                            method: 'GET',
-                            headers: {
-                                'Content-Type': 'application/json',
-                                'Authorization': `Bearer ${token}`,
-                                'Access-Control-Allow-Origin': 'http://localhost:3000',
-                            },
-                        });
-                        if (!response.ok) {
-                            throw new Error(`Failed to fetch favourite product with id ${fav.id}`);
-                        }
 
-                        const responseData = await response.json();
-                        console.log(responseData);
-                        // Pobierz szczegóły produktów dla każdego productId z ulubionych
-                        const productIds = responseData.productId
-                        console.log(productIds)
-                        const response2 = await fetch(`http://localhost:8083/product?id=${productIds}`, {
+                        const response2 = await fetch(`http://localhost:8083/product?id=${fav.productId}`, {
                             method: 'GET',
                             headers: {
                                 'Content-Type': 'application/json',
@@ -47,8 +32,8 @@ export default function FavouritesPage({favouritesUser}) {
                                 'Access-Control-Allow-Origin': 'http://localhost:3000',
                             },
                         });
-                        if (!response.ok) {
-                            throw new Error(`Failed to fetch product with id ${productIds}`);
+                        if (!response2.ok) {
+                            throw new Error(`Failed to fetch product with id ${fav.productId}`);
                         }
 
 
@@ -57,6 +42,9 @@ export default function FavouritesPage({favouritesUser}) {
                             setProductStop(product)
                         else if(productStop.id == product.id)
                             return
+                        console.log(products)
+                        if(products.length>=favouritesUser.length)
+                            return;
                         setProducts((prevProducts) => [...prevProducts, product])
                     });
 

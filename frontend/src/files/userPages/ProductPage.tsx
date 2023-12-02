@@ -33,7 +33,7 @@ export default function ProductPage({favouritesUser}) {
 
                     const responseData = await response.json();
                     setProducts(responseData);
-                    console.log(responseData)
+                    //console.log(responseData)
                 } catch (error) {
                     console.error(error);
                 }

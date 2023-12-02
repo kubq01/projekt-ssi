@@ -2,11 +2,19 @@ import  { useState, useEffect } from 'react';
 import {Product} from "../Product.tsx";
 
 const ResourceManagement = () => {
-    const [products, setProducts] = useState([]);
-    const [newProduct, setNewProduct] = useState();
-    const [editedProduct, setEditedProduct] = useState();
+    const [products, setProducts] = useState<Product[]>([]);
+    const [newProduct, setNewProduct] = useState<Product>({id: 0,
+        categoryId: 0,
+        name: "",
+        price: 0,
+        rating: 0});
+    const [editedProduct, setEditedProduct] = useState<Product>({id: 0,
+        categoryId: 0,
+        name: "",
+        price: 0,
+        rating: 0});
     const token = localStorage.getItem('token');
-    const apiUrl = 'http://localhost:8080/product';
+    const apiUrl = 'http://localhost:8083/product/allall';
 
     const fetchData = async () => {
         try {
@@ -14,7 +22,7 @@ const ResourceManagement = () => {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': token,
+                    'Authorization': `Bearer ${token}`,
                 },
             });
 
@@ -39,7 +47,7 @@ const ResourceManagement = () => {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': token,
+                    'Authorization':  `Bearer ${token}`,
                 },
                 body: JSON.stringify(newProduct),
             });
@@ -63,7 +71,7 @@ const ResourceManagement = () => {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': token,
+                    'Authorization':  `Bearer ${token}`,
                 },
                 body: JSON.stringify(editedProduct),
             });
@@ -87,7 +95,7 @@ const ResourceManagement = () => {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': token,
+                    'Authorization':  `Bearer ${token}`,
                 },
             });
 
