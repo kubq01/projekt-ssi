@@ -1,6 +1,7 @@
 import{ useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import {User} from "../User.tsx";
+import FavouritesPage from "./FavouritesPage.tsx";
 
 export default function UserHome() {
     const [userData, setUserData] = useState <User>({id: 0,
@@ -28,7 +29,10 @@ export default function UserHome() {
                 },
             })
                 .then(response => response.json())
-                .then(data => setUserData(data))
+                .then(data => {
+                    setUserData(data)
+                    console.log(data)
+                })
                 .catch(error => console.error('Error:', error));
         }
     }, []);
@@ -46,6 +50,9 @@ export default function UserHome() {
                     <p>Rola: {userData.role}</p>
                 </div>
             )}
+            <div>
+                <FavouritesPage favouritesUser={userData.favourites}/>
+            </div>
         </div>
     );
 }
