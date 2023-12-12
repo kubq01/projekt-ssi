@@ -2,6 +2,7 @@ package com.example.backend.User;
 
 import com.example.backend.DatabaseConnection;
 
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
