@@ -1,9 +1,9 @@
 package com.example.backend.auth;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+
+import java.sql.Date;
+import java.time.LocalDate;
 
 @Data
 @Builder
@@ -13,6 +13,8 @@ public class RegisterRequest {
 
   private String firstname;
   private String lastname;
+  @Getter
+  private LocalDate dateOfBirth;
   private String email;
   private String password;
   private String role;

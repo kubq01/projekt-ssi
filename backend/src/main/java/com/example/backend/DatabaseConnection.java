@@ -1,8 +1,5 @@
 package com.example.backend;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.function.Function;
 
 import static java.sql.DriverManager.getConnection;
@@ -12,9 +9,15 @@ public class DatabaseConnection {
     private Connection connection = null;
 
     private DatabaseConnection() {
-        String url = "jdbc:postgresql://localhost:5432/nazwa_bazy";
-        String username = "twój_login";
-        String password = "twoje_hasło";
+        try {
+            Class.forName("org.postgresql.Driver");
+        } catch(ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        String url = "jdbc:postgresql://localhost:5432/projekt_ssi";
+        String username = "postgres";
+        String password = "password";
 
         try {
             connection = getConnection(url, username, password);

@@ -18,11 +18,16 @@ public class AuthService {
                 .firstName(request.getFirstname())
                 .lastName(request.getLastname())
                 .login(request.getEmail())
+                .dateOfBirth(request.getDateOfBirth())
                 .password(request.getPassword())
                 .email(request.getEmail())
                 .role(request.getRole())
                 .isBlocked(false)
                 .build();
+
+        //debug
+        System.out.println(user.toString());
+
         repository.createUser(user);
         String jwtToken = jwtService.generateToken(user.getEmail());
         return AuthenticationResponse.builder()

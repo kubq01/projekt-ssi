@@ -33,7 +33,7 @@ public class TokenGenerator {
 
     public String getEmailFromToken(String token) {
         try {
-            JWTVerifier verifier = JWT.require(this.algorithm).withIssuer("your-app-name").build();
+            JWTVerifier verifier = JWT.require(this.algorithm).withIssuer("projekt-ssi").build();
             DecodedJWT jwt = verifier.verify(token);
             return jwt.getSubject();
         } catch (Exception e) {
