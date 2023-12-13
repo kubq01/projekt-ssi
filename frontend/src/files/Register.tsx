@@ -1,126 +1,128 @@
 import { useState } from 'react';
 import axios from 'axios';
-import {Link, useNavigate} from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { Container, TextField, Button, Typography, Paper, Grid } from '@mui/material';
+import RegistrationDialog from "./dialogs/RegistrationDialog";
 
 function Register() {
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const navigate = useNavigate()
+    const [dialogOpen, setDialogOpen] = useState(false);
+    const [registrationSuccess, setRegistrationSuccess] = useState(false);
+    const [dialogMessage, setDialogMessage] = useState('');
+    const navigate = useNavigate();
+
+    const handleDialogClose = () => {
+        setDialogOpen(false);
+    };
 
     const handleRegistration = async (e) => {
         e.preventDefault();
-
-        const apiUrl = 'http://localhost:8083/auth/register'; // Zastąp odpowiednią ścieżką
-
-
+        const apiUrl = 'http://localhost:8083/auth/register';
         try {
             const response = await axios.post(apiUrl, {
-                firstName: firstName,
-                lastName: lastName,
-                email: email,
-                password: password,
+                firstName,
+                lastName,
+                email,
+                password,
                 role: "USER",
             });
 
-            console.log("ffff")
-
             if (response.data) {
-                alert('Zarejestrowano pomyślnie!');
-                localStorage.setItem("token", response.data.accessToken)
-                localStorage.setItem("role", response.data.role)
-                if(localStorage.getItem("role") == "ADMIN") {
-                    navigate("/adminpanel")
-                } else {
-                    navigate("/userhome")
-                }
+                setDialogMessage('Udało się utworzyć konto');
+                setRegistrationSuccess(true);
+                setDialogOpen(true);
+
+                localStorage.setItem("token", response.data.accessToken);
+                localStorage.setItem("role", response.data.role);
+                navigate(localStorage.getItem("role") === "ADMIN" ? "/adminpanel" : "/userhome");
             } else {
-                alert('Błąd rejestracji. Spróbuj ponownie.');
+                setDialogMessage('Konto o takim emailu już istnieje!!!');
+                setRegistrationSuccess(false);
+                setDialogOpen(true);
             }
         } catch (error) {
             console.error('Błąd rejestracji:', error);
-            alert('Wystąpił błąd podczas rejestracji. Spróbuj ponownie później.');
+            setDialogMessage('Wystąpił błąd podczas rejestracji. Spróbuj ponownie później.');
+            setRegistrationSuccess(false);
+            setDialogOpen(true);
         }
     };
 
     return (
-        <div className="container">
-            <div className="row">
-                <div className="col-md-6 offset-md-3 border rounded p-4 mt-2 shadow">
-                    <h2 className="text-center m-4">Formularz Rejestracji</h2>
-                    <hr />
-                    <form onSubmit={handleRegistration}>
-                        <div className="mb-3">
-                            <div className="form-group">
-                                <label htmlFor="firstName">Imię:</label>
-                                <input
-                                    type="text"
-                                    className="form-control"
-                                    id="firstName"
-                                    placeholder="Enter First Name"
-                                    value={firstName}
-                                    onChange={(event) => setFirstName(event.target.value)}
-                                    required
-                                />
-                            </div>
-                        </div>
-                        <div className="mb-3">
-                            <div className="form-group">
-                                <label htmlFor="lastName">Nazwisko:</label>
-                                <input
-                                    type="text"
-                                    className="form-control"
-                                    id="lastName"
-                                    placeholder="Enter Last Name"
-                                    value={lastName}
-                                    onChange={(event) => setLastName(event.target.value)}
-                                    required
-                                />
-                            </div>
-                        </div>
-                        <div className="mb-3">
-                            <div className="form-group">
-                                <label htmlFor="email">Email:</label>
-                                <input
-                                    type="email"
-                                    className="form-control"
-                                    id="email"
-                                    placeholder="Enter Email"
-                                    value={email}
-                                    onChange={(event) => setEmail(event.target.value)}
-                                    required
-                                />
-                            </div>
-                        </div>
-                        <div className="mb-3">
-                            <div className="form-group">
-                                <label htmlFor="password">Hasło:</label>
-                                <input
-                                    type="password"
-                                    className="form-control"
-                                    id="password"
-                                    placeholder="Enter Password"
-                                    value={password}
-                                    onChange={(event) => setPassword(event.target.value)}
-                                    required
-                                />
-                            </div>
-                        </div>
-                        <div className="mb-3">
-                            <button type="submit" className="btn btn-primary">
+        <Container maxWidth="sm" style={{marginTop: '6vw'}}>
+            <Paper elevation={3} style={{ padding: '20px', marginTop: '20px' }}>
+                <Typography variant="h4" align="center" gutterBottom>
+                    Formularz Rejestracji
+                </Typography>
+                <form onSubmit={handleRegistration}>
+                    <Grid container spacing={2}>
+                        <Grid item xs={12}>
+                            <TextField
+                                label="Imię"
+                                variant="outlined"
+                                fullWidth
+                                value={firstName}
+                                onChange={(e) => setFirstName(e.target.value)}
+                                required
+                            />
+                        </Grid>
+                        <Grid item xs={12}>
+                            <TextField
+                                label="Nazwisko"
+                                variant="outlined"
+                                fullWidth
+                                value={lastName}
+                                onChange={(e) => setLastName(e.target.value)}
+                                required
+                            />
+                        </Grid>
+                        <Grid item xs={12}>
+                            <TextField
+                                type="email"
+                                label="Email"
+                                variant="outlined"
+                                fullWidth
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
+                                required
+                            />
+                        </Grid>
+                        <Grid item xs={12}>
+                            <TextField
+                                type="password"
+                                label="Hasło"
+                                variant="outlined"
+                                fullWidth
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
+                                required
+                            />
+                        </Grid>
+                        <Grid item xs={12}>
+                            <Button type="submit" variant="contained" color="primary" fullWidth>
                                 Zarejestruj
-                            </button>
-                        </div>
-                        <div className="text-center">
-                            <Link to="/" className="btn btn-secondary">
-                                Wróć do strony głównej
+                            </Button>
+                        </Grid>
+                        <Grid item xs={12}>
+                            <Link to="/" style={{ textDecoration: 'none' }}>
+                                <Button variant="outlined" color="secondary" fullWidth>
+                                    Wróć do strony głównej
+                                </Button>
                             </Link>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
+                        </Grid>
+                    </Grid>
+                </form>
+            </Paper>
+            <RegistrationDialog
+                open={dialogOpen}
+                handleClose={handleDialogClose}
+                success={registrationSuccess}
+                message={dialogMessage}
+            />
+        </Container>
     );
 }
 

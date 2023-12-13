@@ -1,9 +1,11 @@
-import { useContext, useEffect, useState } from 'react';
-import {useNavigate} from "react-router-dom";
-import {Product} from "../Product.tsx";
-import {Favourites} from "../Favourites.tsx";
-import {Button} from "@mui/material";
+import { useState, useEffect } from 'react';
+import { Grid, Paper, Container, Typography, Button, List, ListItem, ListItemText } from '@mui/material';
+// @ts-ignore
+import Product from "../Product.tsx";
+import { useNavigate } from 'react-router-dom';
+// @ts-ignore
 import Navbar2 from "../../components/Navbar2.tsx";
+import {Favourites} from "../Favourites";
 
 export default function ProductPage({favouritesUser}) {
 
@@ -39,11 +41,8 @@ export default function ProductPage({favouritesUser}) {
                     console.error(error);
                 }
             };
-
             fetchData();
         }
-
-
     }, [navigate, products]);
 
     const handleButtonClick = async (product) => {
@@ -63,17 +62,30 @@ export default function ProductPage({favouritesUser}) {
     };
 
     return (
-        <div>
-            <h1>All Products</h1>
-            <ul>
-                {products.map((product) => (
-                    <li key={product.id}>
-                        {`Product ID: ${product.id}, Name: ${product.name}, Price: ${product.price}, Rating: ${product.rating}`}
-                        <Button onClick={() => handleButtonClick(product)}>
-                            Add to favourite</Button>
-                    </li>
-                ))}
-            </ul>
-        </div>
+        <Container>
+            <Grid container spacing={2}>
+                <Grid item xs={12}>
+                    <Paper elevation={3} sx={{ p: 2, borderColor: 'primary.main', border: 1, boxShadow: 3, borderRadius: 2 }}>
+                        <Typography variant="h5" gutterBottom>
+                            Wszystkie produkty
+                        </Typography>
+                        <hr/>
+                        <List>
+                            {products.map((product) => (
+                                <ListItem key={product.id} divider>
+                                    <ListItemText
+                                        primary={`Nazwa: ${product.name}`}
+                                        secondary={`ID: ${product.id}, Cena: ${product.price}, Ocena: ${product.rating}`}
+                                    />
+                                    <Button variant="outlined" onClick={() => handleButtonClick(product)}>
+                                        Dodaj do ulubionych
+                                    </Button>
+                                </ListItem>
+                            ))}
+                        </List>
+                    </Paper>
+                </Grid>
+            </Grid>
+        </Container>
     );
 }

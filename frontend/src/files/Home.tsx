@@ -1,23 +1,37 @@
-import { Link } from 'react-router-dom';
+import { Link as RouterLink } from 'react-router-dom';
+import { Button, Container, Box, Typography, Paper } from '@mui/material';
 
 function Home() {
     return (
-        <div className="container">
-            <div className="row">
-                <div className="col-md-6 offset-md-3 border rounded p-4 mt-2 shadow">
-                    <h1 className="text-center m-4">Witaj na stronie głównej</h1>
+        <Container>
+            <Box display="flex" justifyContent="center" alignItems="center" minHeight="100vh">
+                <Paper elevation={3} style={{ padding: '2rem', width: '100%', maxWidth: '500px' }}>
+                    <Typography variant="h4" component="h1" gutterBottom align="center">
+                        Witaj na stronie głównej
+                    </Typography>
                     <hr />
-                    <div className="text-center">
-                        <Link to="/login" className="btn btn-primary m-2">
+                    <Box display="flex" flexDirection="column" alignItems="center" marginTop="2rem">
+                        <Button
+                            component={RouterLink}
+                            to="/login"
+                            variant="contained"
+                            color="primary"
+                            style={{ marginBottom: '1rem' }}
+                        >
                             Przejdź do logowania
-                        </Link>
-                        <Link to="/register" className="btn btn-secondary m-2">
+                        </Button>
+                        <Button
+                            component={RouterLink}
+                            to="/register"
+                            variant="outlined"
+                            color="secondary"
+                        >
                             Przejdź do rejestracji
-                        </Link>
-                    </div>
-                </div>
-            </div>
-        </div>
+                        </Button>
+                    </Box>
+                </Paper>
+            </Box>
+        </Container>
     );
 }
 

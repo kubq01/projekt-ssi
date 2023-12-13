@@ -1,11 +1,28 @@
 import { useState } from 'react';
 import axios from 'axios';
-import {Link, useNavigate} from 'react-router-dom';
+import { useNavigate, Link as RouterLink } from 'react-router-dom';
+import { Container, Box, Paper, Typography, TextField, Button, Link } from '@mui/material';
+import LoginDialog from "./dialogs/LoginDialog";
 
 function Login() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const navigate = useNavigate()
+    const [dialogOpen, setDialogOpen] = useState(false);
+    const [loginSuccess, setLoginSuccess] = useState(false);
+    const [dialogMessage, setDialogMessage] = useState('');
+    const navigate = useNavigate();
+
+    const handleDialogClose = () => {
+        setDialogOpen(false);
+
+        if (loginSuccess) {
+            if (localStorage.getItem("role") === "ADMIN") {
+                navigate("/adminpanel");
+            } else {
+                navigate("/userhome");
+            }
+        }
+    };
 
     const handleLogin = async (e) => {
         e.preventDefault();
@@ -13,87 +30,78 @@ function Login() {
         const apiUrl = 'http://localhost:8083/auth/authenticate';
 
         try {
-            const response = await axios.post(apiUrl, {
-                email: email,
-                password: password,
-            });
-
-
+            const response = await axios.post(apiUrl, { email, password });
 
             if (response.data) {
-
-                //alert(JSON.stringify(response.data))
-                if(response.data.blocked == true) {
+                if (response.data.blocked) {
                     alert('Użytkownik zablokowany');
                     return;
                 }
-                alert('Zalogowano pomyślnie!');
-                localStorage.setItem("token", response.data.accessToken)
-                localStorage.setItem("role", response.data.role)
-                if(localStorage.getItem("role") == "ADMIN") {
-                    navigate("/adminpanel")
-                } else {
-
-                    navigate("/userhome")
-                }
+                setDialogMessage('Pomyślnie się zalogowałeś');
+                setLoginSuccess(true);
+                setDialogOpen(true);
+                localStorage.setItem("token", response.data.accessToken);
+                localStorage.setItem("role", response.data.role);
             } else {
-                alert('Błąd logowania. Spróbuj ponownie.');
+                setDialogMessage('Wystąpił problem podczas logowania');
+                setLoginSuccess(false);
+                setDialogOpen(true);
             }
         } catch (error) {
             console.error('Błąd logowania:', error);
-            alert('Wystąpił błąd podczas logowania. Spróbuj ponownie później.');
+            setDialogMessage('Wystąpił problem podczas logowania. Spróbuj ponownie później.');
+            setLoginSuccess(false);
+            setDialogOpen(true);
         }
     };
 
     return (
-        <div className="container">
-            <div className="row">
-                <div className="col-md-6 offset-md-3 border rounded p-4 mt-2 shadow">
-                    <h2 className="text-center m-4">Formularz Logowania</h2>
+        <Container>
+            <Box display="flex" justifyContent="center" alignItems="center" minHeight="100vh">
+                <Paper elevation={3} style={{ padding: '2rem', width: '100%', maxWidth: '500px' }}>
+                    <Typography variant="h5" component="h2" gutterBottom align="center">
+                        Formularz Logowania
+                    </Typography>
                     <hr />
                     <form onSubmit={handleLogin}>
-                        <div className="mb-3">
-                            <div className="form-group">
-                                <label htmlFor="email">Email:</label>
-                                <input
-                                    type="email"
-                                    className="form-control"
-                                    id="email"
-                                    placeholder="Enter Email"
-                                    value={email}
-                                    onChange={(event) => setEmail(event.target.value)}
-                                    required
-                                />
-                            </div>
-                        </div>
-                        <div className="mb-3">
-                            <div className="form-group">
-                                <label htmlFor="password">Hasło:</label>
-                                <input
-                                    type="password"
-                                    className="form-control"
-                                    id="password"
-                                    placeholder="Enter Password"
-                                    value={password}
-                                    onChange={(event) => setPassword(event.target.value)}
-                                    required
-                                />
-                            </div>
-                        </div>
-                        <div className="mb-3">
-                            <button type="submit" className="btn btn-primary">
+                        <TextField
+                            label="Email"
+                            type="email"
+                            fullWidth
+                            margin="normal"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            required
+                        />
+                        <TextField
+                            label="Hasło"
+                            type="password"
+                            fullWidth
+                            margin="normal"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                            required
+                        />
+                        <Box textAlign="center" marginTop="2rem">
+                            <Button type="submit" variant="contained" color="primary">
                                 Zaloguj
-                            </button>
-                        </div>
+                            </Button>
+                        </Box>
                     </form>
-                    <div className="text-center">
-                        <Link to="/" className="btn btn-secondary">
+                    <Box textAlign="center" marginTop="2rem">
+                        <Link component={RouterLink} to="/" color="secondary">
                             Wróć do strony głównej
                         </Link>
-                    </div>
-                </div>
-            </div>
-        </div>
+                    </Box>
+                </Paper>
+            </Box>
+            <LoginDialog
+                open={dialogOpen}
+                handleClose={handleDialogClose}
+                success={loginSuccess}
+                message={dialogMessage}
+            />
+        </Container>
     );
 }
 

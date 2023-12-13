@@ -1,3 +1,4 @@
+// @ts-ignore
 import {Favourites} from "./Favourites.tsx";
 import {type} from "@testing-library/user-event/dist/type";
 
