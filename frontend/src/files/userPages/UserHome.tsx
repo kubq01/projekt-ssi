@@ -65,12 +65,12 @@ export default function UserHome() {
                             <Grid item xs={12} sm={6}>
                                 <Typography variant="subtitle1"><strong>Nazwisko:</strong> {userData.lastName}</Typography>
                             </Grid>
-                            <Grid item xs={12} sm={6}>
-                                <Typography variant="subtitle1"><strong>Data urodzenia:</strong> {userData.dateOfBirth}</Typography>
-                            </Grid>
-                            <Grid item xs={12} sm={6}>
-                                <Typography variant="subtitle1"><strong>Login:</strong> {userData.login}</Typography>
-                            </Grid>
+                            {/*<Grid item xs={12} sm={6}>*/}
+                            {/*    <Typography variant="subtitle1"><strong>Data urodzenia:</strong> {userData.dateOfBirth}</Typography>*/}
+                            {/*</Grid>*/}
+                            {/*<Grid item xs={12} sm={6}>*/}
+                            {/*    <Typography variant="subtitle1"><strong>Login:</strong> {userData.login}</Typography>*/}
+                            {/*</Grid>*/}
                             <Grid item xs={12} sm={6}>
                                 <Typography variant="subtitle1"><strong>Email:</strong> {userData.email}</Typography>
                             </Grid>

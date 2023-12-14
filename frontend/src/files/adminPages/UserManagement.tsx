@@ -18,6 +18,7 @@ const UserManagement = () => {
     const token = localStorage.getItem('token');
     const apiUrl = 'http://localhost:8083/user/getNotAdmins';
     const navigate = useNavigate();
+    const [userPasswords, setUserPasswords] = useState({});
 
     useEffect(() => {
         const fetchData = async () => {
@@ -94,7 +95,7 @@ const UserManagement = () => {
         }
     };
 
-    const changeUserPassword = async (user: User) => {
+    const changeUserPassword = async (user: User, newPassword: string) => {
         user.password = newPassword;
         try {
             const response = await fetch('http://localhost:8083/user/password', {
@@ -146,16 +147,22 @@ const UserManagement = () => {
                                     label="New Password"
                                     type="password"
                                     size="small"
-                                    value={newPassword}
+                                    value={userPasswords[user.email] || ''}
                                     variant="outlined"
-                                    onChange={(e) => setNewPassword(e.target.value)}
+                                    onChange={(e) => {
+                                        setUserPasswords((prevPassword) => ({
+                                            ...user.password,
+                                            [user.email]: e.target.value,
+                                        }));
+                                    }}
+                                    // setNewPassword(e.target.value)}
                                     style={{ marginRight: 8 }}
                                 />
                                 <Button
                                     variant="contained"
                                     color="primary"
                                     size="small"
-                                    onClick={() => changeUserPassword(user)}
+                                    onClick={() => changeUserPassword(user, userPasswords[user.email])}
                                 >
                                     <VpnKeyIcon />
                                 </Button>
